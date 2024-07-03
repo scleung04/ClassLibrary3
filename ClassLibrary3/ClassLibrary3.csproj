@@ -36,15 +36,19 @@
   <ItemGroup>
     <Reference Include="Autodesk.IFC.Export.UI">
       <HintPath>..\..\..\..\..\..\Program Files\Autodesk\Revit 2024\AddIns\IFCExporterUI\Autodesk.IFC.Export.UI.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Autodesk.IFC.Export.UI.Resources">
       <HintPath>..\..\..\..\..\..\Program Files\Autodesk\Revit 2024\AddIns\IFCExporterUI\en-US\Autodesk.IFC.Export.UI.Resources.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="RevitAPI">
       <HintPath>..\..\..\..\..\..\Program Files\Autodesk\Revit 2024\RevitAPI.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="RevitAPIUI">
       <HintPath>..\..\..\..\..\..\Program Files\Autodesk\Revit 2024\RevitAPIUI.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -64,7 +68,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassLibrary3.addin" />
+    <None Include="ClassLibrary3.addin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
