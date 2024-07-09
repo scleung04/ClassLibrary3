@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Autodesk.Revit.ApplicationServices;
 using static System.Net.Mime.MediaTypeNames;
 using System.Security.Policy;
 using System.Xml.Linq;
@@ -269,7 +270,7 @@ namespace ClassLibrary3
                 // Tab 3: Property Sets
                 ifcOptions.AddOption("ExportRevitPropertySets", "false");
                 ifcOptions.AddOption("ExportIFCCommonPropertySets", "true");
-                ifcOptions.AddOption("ExportBaseQuantities", "true");
+                ifcOptions.AddOption("ExportBaseQuantities", "false");
                 ifcOptions.AddOption("ExportMaterialPropertySets", "false"); // Export material property sets
                 ifcOptions.AddOption("ExportSchedulesAsPsets", "false");
                 ifcOptions.AddOption("ExportOnlySchedulesContainingIFCPsetOrCommonInTitle", "false"); // Export only schedules containing IFC, Pset, or Common in the title
