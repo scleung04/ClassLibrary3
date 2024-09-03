@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Autodesk.Revit.ApplicationServices;
 using static System.Net.Mime.MediaTypeNames;
 using System.Security.Policy;
 using System.Xml.Linq;
@@ -234,7 +233,7 @@ namespace ClassLibrary3
                 string ifcFileName = Path.GetFileNameWithoutExtension(filePath) + ".ifc";
                 string ifcFilePath = Path.Combine(ifcFolderPath, ifcFileName);
 
-                // Set up IFC export options
+                // Tab 1: General
                 IFCExportOptions ifcOptions = new IFCExportOptions
                 {
                     FileVersion = IFCVersion.IFC2x3CV2,
@@ -259,8 +258,7 @@ namespace ClassLibrary3
                 // Additional IFC export options
                 ifcOptions.AddOption("SplitWallsAndColumnsByLevel", "false");
 
-                // Tab 2: Additional Content (single problem with linked files, everything else is good)
-                ifcOptions.AddOption("ExportLinkedFiles", "true");
+                // Tab 2: Additional Content
                 ifcOptions.AddOption("ExportElementsVisibleInView", "false"); // Export only elements visible in the view
                 ifcOptions.AddOption("ExportRooms", "false"); // Export rooms
                 ifcOptions.AddOption("ExportAreas", "false"); // Export areas
@@ -271,7 +269,7 @@ namespace ClassLibrary3
                 // Tab 3: Property Sets
                 ifcOptions.AddOption("ExportRevitPropertySets", "false");
                 ifcOptions.AddOption("ExportIFCCommonPropertySets", "true");
-                ifcOptions.ExportBaseQuantities = false;
+                ifcOptions.AddOption("ExportBaseQuantities", "true");
                 ifcOptions.AddOption("ExportMaterialPropertySets", "false"); // Export material property sets
                 ifcOptions.AddOption("ExportSchedulesAsPsets", "false");
                 ifcOptions.AddOption("ExportOnlySchedulesContainingIFCPsetOrCommonInTitle", "false"); // Export only schedules containing IFC, Pset, or Common in the title
@@ -281,11 +279,12 @@ namespace ClassLibrary3
                 ifcOptions.AddOption("ExportUserDefinedParameterMappingFile", "path_to_user_defined_parameter_mapping_file.txt");
 
                 // Tab 4: Level of Detail
-                ifcOptions.AddOption("TessellationLevelOfDetail", "Medium");
+
 
                 // Tab 5: Advanced
                 ifcOptions.AddOption("ExportPartsAsBuildingElements", "false");
                 ifcOptions.AddOption("AllowMixedSolidModelRepresentation", "false");
+                ifcOptions.AddOption("UseActiveViewGeometry", "false");
                 ifcOptions.AddOption("UseActiveViewGeometry", "false");
                 ifcOptions.AddOption("UseFamilyAndTypeNameForReference", "false"); // Use family and type name for reference
                 ifcOptions.AddOption("Use2DRoomBoundariesForRoomVolume", "false"); // Use 2D room boundaries for room volume
@@ -293,12 +292,11 @@ namespace ClassLibrary3
                 ifcOptions.AddOption("StoreIFCGUIDInElementParameterAfterExport", "true"); // Store the IFC GUID in an element parameter after export
                 ifcOptions.AddOption("ExportBoundingBox", "false");
                 ifcOptions.AddOption("Keep Tessellated Geometry As Triangulation", "false");
-                ifcOptions.AddOption("UseTypeNameOnlyForIfcType", "false"); // Use type name only for IFC type
-                ifcOptions.AddOption("UseVisibleRevitNameAsIfcEntityName", "true"); // Use visible Revit name as IfcEntity name
+                ifcOptions.AddOption("UseTypeNameOnlyForIfcTypeName", "false"); // Use type name only for IfcType name
+                ifcOptions.AddOption("UseVisibleRevitNameAsIfcEntityName", "false"); // Use visible Revit name as the IfcEntity name
 
                 // Tab 6: Geographic Reference
-                ifcOptions.AddOption("SitePlacement", "DefaultSite"); // Use Default Site for site placement
-                ifcOptions.AddOption("CoordinateBase", "SharedCoordinates"); // Use Shared Coordinates for coordinate base
+
 
                 using (Transaction exportTrans = new Transaction(doc, "Export IFC"))
                 {
@@ -315,5 +313,6 @@ namespace ClassLibrary3
                 writer.WriteLine(ex.StackTrace);
             }
         }
+
     }
 }
